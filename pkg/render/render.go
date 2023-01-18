@@ -5,12 +5,19 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/justinas/nosurf"
 	"github.com/yesilyurtburak/go-web-basics-3/models"
 	"github.com/yesilyurtburak/go-web-basics-3/pkg/helpers"
 )
 
 // do not render everything while reloading the page, use templateCache instead.
 var templateCache = make(map[string]*template.Template)
+
+// This function pass the CSRF token to the template to handle post requests.
+func AddCSRFData(pd *models.PageData, r *http.Request) *models.PageData {
+	pd.CSRFToken = nosurf.Token(r) // generate a token
+	return pd
+}
 
 // this function creates a cache.
 func makeTemplateCache(t string) error {
@@ -26,7 +33,7 @@ func makeTemplateCache(t string) error {
 }
 
 // this function renders the template on the browser
-func RenderTemplate(w http.ResponseWriter, t string, pd *models.PageData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, t string, pd *models.PageData) {
 	var tmpl *template.Template
 	var err error
 	// check if the template is already in cache
@@ -38,6 +45,9 @@ func RenderTemplate(w http.ResponseWriter, t string, pd *models.PageData) {
 		fmt.Println("Template is loaded from cache")
 	}
 	tmpl = templateCache[t]
+
+	pd = AddCSRFData(pd, r) // Add CSRFToken to the existing pd variable.
+
 	err = tmpl.Execute(w, pd) // writes the template to the response writer `w` by sending data `pd`
 	helpers.ErrorCheck(err)
 }

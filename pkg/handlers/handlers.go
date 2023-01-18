@@ -29,26 +29,36 @@ func NewHandlers(r *Repository) {
 }
 
 func (m *Repository) HomeHandler(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.gotmpl", &models.PageData{})
+	render.RenderTemplate(w, r, "home.page.gotmpl", &models.PageData{})
 }
 
 func (m *Repository) AboutHandler(w http.ResponseWriter, r *http.Request) {
 	strMap := make(map[string]string)
-	render.RenderTemplate(w, "about.page.gotmpl", &models.PageData{StrMap: strMap})
+	render.RenderTemplate(w, r, "about.page.gotmpl", &models.PageData{StrMap: strMap})
 	// created a strMap and send some information to about.page.gotmpl template via models.PageData
 }
 
 func (m *Repository) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	strMap := make(map[string]string)
-	render.RenderTemplate(w, "login.page.gotmpl", &models.PageData{StrMap: strMap})
+	render.RenderTemplate(w, r, "login.page.gotmpl", &models.PageData{StrMap: strMap})
 }
 
 func (m *Repository) MakePostHandler(w http.ResponseWriter, r *http.Request) {
 	strMap := make(map[string]string)
-	render.RenderTemplate(w, "makepost.page.gotmpl", &models.PageData{StrMap: strMap})
+	render.RenderTemplate(w, r, "makepost.page.gotmpl", &models.PageData{StrMap: strMap})
 }
 
 func (m *Repository) PageHandler(w http.ResponseWriter, r *http.Request) {
 	strMap := make(map[string]string)
-	render.RenderTemplate(w, "page.page.gotmpl", &models.PageData{StrMap: strMap})
+	render.RenderTemplate(w, r, "page.page.gotmpl", &models.PageData{StrMap: strMap})
+}
+
+func (m *Repository) PostMakePostHandler(w http.ResponseWriter, r *http.Request) {
+	// Access the form data
+	blog_title := r.Form.Get("blog_title")
+	blog_article := r.Form.Get("blog_article")
+
+	// Write the data to the response writer.
+	w.Write([]byte(blog_title))
+	w.Write([]byte(blog_article))
 }
