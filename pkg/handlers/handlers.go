@@ -37,3 +37,18 @@ func (m *Repository) AboutHandler(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, "about.page.gotmpl", &models.PageData{StrMap: strMap})
 	// created a strMap and send some information to about.page.gotmpl template via models.PageData
 }
+
+func (m *Repository) LoginHandler(w http.ResponseWriter, r *http.Request) {
+	strMap := make(map[string]string)
+	render.RenderTemplate(w, "login.page.gotmpl", &models.PageData{StrMap: strMap})
+}
+
+func (m *Repository) MakePostHandler(w http.ResponseWriter, r *http.Request) {
+	strMap := make(map[string]string)
+	render.RenderTemplate(w, "makepost.page.gotmpl", &models.PageData{StrMap: strMap})
+}
+
+func (m *Repository) PageHandler(w http.ResponseWriter, r *http.Request) {
+	strMap := make(map[string]string)
+	render.RenderTemplate(w, "page.page.gotmpl", &models.PageData{StrMap: strMap})
+}
