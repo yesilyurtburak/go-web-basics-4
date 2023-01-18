@@ -1,5 +1,7 @@
 package models
 
+import "github.com/yesilyurtburak/go-web-basics-3/pkg/forms"
+
 // These types can be used for sending data from our codebase to page templates.
 
 type PageData struct {
@@ -10,4 +12,5 @@ type PageData struct {
 	CSRFToken string
 	Error     string
 	Warning   string
+	Form      *forms.Form
 }
