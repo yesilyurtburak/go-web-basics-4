@@ -1,12 +1,14 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/yesilyurtburak/go-web-basics-3/models"
 	"github.com/yesilyurtburak/go-web-basics-3/pkg/config"
 	"github.com/yesilyurtburak/go-web-basics-3/pkg/handlers"
 )
@@ -21,6 +23,8 @@ var sessionManager *scs.SessionManager // defines a new SessionManager variable 
 var app config.AppConfig               // defines a new configuration variable `app`
 
 func main() {
+	gob.Register(models.Article{}) // can use models.Article inside of our sessions.
+
 	// initialize the session
 	sessionManager = scs.New()
 	sessionManager.Lifetime = 24 * time.Hour              // cookies' lifetime

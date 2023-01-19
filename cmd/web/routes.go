@@ -28,6 +28,7 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/makepost", handlers.Repo.MakePostHandler)
 	mux.Post("/makepost", handlers.Repo.PostMakePostHandler)
 	mux.Get("/page", handlers.Repo.PageHandler)
+	mux.Get("/article-received", handlers.Repo.ArticleReceived)
 
 	// for static files
 	fileServer := http.FileServer(http.Dir("./static/"))

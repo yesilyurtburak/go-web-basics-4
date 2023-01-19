@@ -6,6 +6,7 @@
 
     <form method="post" action="" class="" novalidate> 
         <!-- we are using server side validation (forms.go, errors.go, handlers.go) therefore we removed needs-validation class which was a client side validation-->
+        <!--INFORMATION: Since the action="" is empty, the data will be sent to its own page-->
 
         <!-- CSRF token must be hidden. -->
         <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
